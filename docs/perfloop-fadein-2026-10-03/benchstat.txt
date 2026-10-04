@@ -1,0 +1,63 @@
+goos: darwin
+goarch: arm64
+pkg: github.com/zalando/skipper/proxy
+cpu: Apple M5 Max
+                                                         │  control.txt  │            candidate.txt            │
+                                                         │    sec/op     │    sec/op      vs base              │
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=1      92.57µ ±  7%   87.19µ ±  86%       ~ (p=0.310 n=6)
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=8      88.13µ ± 10%   88.47µ ±  56%       ~ (p=0.818 n=6)
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=32     93.85µ ± 10%   87.34µ ± 137%       ~ (p=0.329 n=6)
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=200   100.66µ ±  7%   93.79µ ±   4%  -6.83% (p=0.015 n=6)
+FadeInProofServeHTTP/random/endpoints=1                     90.33µ ±  9%   84.52µ ±   2%       ~ (p=0.065 n=6)
+FadeInProofServeHTTP/random/endpoints=8                     84.51µ ±  8%   85.33µ ±  50%       ~ (p=0.589 n=6)
+FadeInProofServeHTTP/random/endpoints=32                    89.91µ ± 10%   89.77µ ± 296%       ~ (p=0.699 n=6)
+FadeInProofServeHTTP/random/endpoints=200                   98.24µ ± 14%   96.38µ ±   7%       ~ (p=0.485 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=1                 87.62µ ± 49%   87.32µ ±  21%       ~ (p=0.818 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=8                 87.76µ ±  8%   87.90µ ±   9%       ~ (p=0.699 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=32                90.51µ ± 14%   87.36µ ±  11%       ~ (p=0.699 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=200               101.4µ ± 11%   101.7µ ±  12%       ~ (p=1.000 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=1             86.66µ ± 23%   89.59µ ±   9%       ~ (p=0.180 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=8             88.62µ ± 17%   86.06µ ±  18%       ~ (p=0.937 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=32            90.74µ ± 36%   86.41µ ±  19%       ~ (p=0.394 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=200          101.12µ ± 30%   93.09µ ± 154%       ~ (p=0.093 n=6)
+geomean                                                     91.89µ         89.41µ         -2.70%
+
+                                                         │ control.txt  │            candidate.txt            │
+                                                         │     B/op     │     B/op      vs base               │
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=1     24.82Ki ± 0%   24.75Ki ± 0%   -0.25% (p=0.002 n=6)
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=8     25.25Ki ± 0%   24.75Ki ± 0%   -1.98% (p=0.002 n=6)
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=32    27.00Ki ± 0%   24.75Ki ± 0%   -8.34% (p=0.002 n=6)
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=200   38.00Ki ± 0%   24.75Ki ± 0%  -34.87% (p=0.002 n=6)
+FadeInProofServeHTTP/random/endpoints=1                    24.81Ki ± 0%   24.75Ki ± 0%   -0.25% (p=0.002 n=6)
+FadeInProofServeHTTP/random/endpoints=8                    25.25Ki ± 0%   24.75Ki ± 0%   -1.98% (p=0.002 n=6)
+FadeInProofServeHTTP/random/endpoints=32                   27.00Ki ± 0%   24.75Ki ± 0%   -8.33% (p=0.002 n=6)
+FadeInProofServeHTTP/random/endpoints=200                  38.00Ki ± 0%   24.75Ki ± 0%  -34.87% (p=0.002 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=1                24.81Ki ± 0%   24.75Ki ± 0%   -0.25% (p=0.002 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=8                25.25Ki ± 0%   24.75Ki ± 0%   -1.98% (p=0.002 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=32               27.00Ki ± 0%   24.75Ki ± 0%   -8.33% (p=0.002 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=200              38.00Ki ± 0%   24.75Ki ± 0%  -34.87% (p=0.002 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=1            24.81Ki ± 0%   24.75Ki ± 0%   -0.25% (p=0.002 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=8            25.28Ki ± 0%   24.78Ki ± 0%   -1.98% (p=0.002 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=32           27.03Ki ± 0%   24.78Ki ± 0%   -8.33% (p=0.002 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=200          38.03Ki ± 0%   24.78Ki ± 0%  -34.84% (p=0.002 n=6)
+geomean                                                    28.32Ki        24.76Ki       -12.59%
+
+                                                         │ control.txt │          candidate.txt           │
+                                                         │  allocs/op  │ allocs/op   vs base              │
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=1      178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=8      178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=32     178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/powerOfRandomNChoices/endpoints=200    178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/random/endpoints=1                     178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/random/endpoints=8                     178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/random/endpoints=32                    178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/random/endpoints=200                   178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=1                 178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=8                 178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=32                178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/roundRobin/endpoints=200               178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=1             178.0 ± 0%   177.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=8             180.0 ± 0%   179.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=32            180.0 ± 0%   179.0 ± 0%  -0.56% (p=0.002 n=6)
+FadeInProofServeHTTP/consistentHash/endpoints=200           180.0 ± 0%   179.0 ± 0%  -0.56% (p=0.002 n=6)
+geomean                                                     178.4        177.4       -0.56%

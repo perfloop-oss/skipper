@@ -1,0 +1,126 @@
+goos: darwin
+goarch: arm64
+pkg: github.com/zalando/skipper/proxy
+cpu: Apple M5 Max
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=1         	   13948	     86894 ns/op	   25347 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=8         	   13934	     88342 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=32        	   13345	     89398 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=200       	   12676	     94319 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=1                        	   14146	     85408 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=8                        	   13606	     87210 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=32                       	   12440	     94512 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=200                      	   12998	     94009 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=1                    	   12728	     88888 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=8                    	   13971	     88315 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=32                   	   13590	     85875 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=200                  	   12585	     99370 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=1                	   13116	     89956 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=8                	   13792	     85669 ns/op	   25377 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=32               	   13580	     86925 ns/op	   25376 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=200              	   12843	     93399 ns/op	   25374 B/op	     179 allocs/op
+PASS
+goos: darwin
+goarch: arm64
+pkg: github.com/zalando/skipper/proxy
+cpu: Apple M5 Max
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=1         	   13590	     85347 ns/op	   25347 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=8         	   14329	     83711 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=32        	   14118	     84897 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=200       	   12818	     93251 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=1                        	   13653	     85065 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=8                        	   14125	     82594 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=32                       	   14144	     90211 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=200                      	   10000	    100245 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=1                    	   13196	     83792 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=8                    	   14480	     91407 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=32                   	   12846	     93869 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=200                  	   10000	    104037 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=1                	   13158	     89220 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=8                	   13554	     83830 ns/op	   25377 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=32               	   13910	     85897 ns/op	   25376 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=200              	   12894	     92774 ns/op	   25374 B/op	     179 allocs/op
+PASS
+goos: darwin
+goarch: arm64
+pkg: github.com/zalando/skipper/proxy
+cpu: Apple M5 Max
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=1         	   12642	     85302 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=8         	   14119	     85268 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=32        	   14024	     86710 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=200       	   12211	     94900 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=1                        	   14215	     82496 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=8                        	   14319	     84632 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=32                       	   13690	     88522 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=200                      	   12780	     93667 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=1                    	   13958	     86503 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=8                    	   14149	     87475 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=32                   	   14076	     87905 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=200                  	   12783	    104884 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=1                	   13467	     87095 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=8                	   13650	     85747 ns/op	   25377 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=32               	   14547	     81834 ns/op	   25376 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=200              	   13659	     88577 ns/op	   25374 B/op	     179 allocs/op
+PASS
+goos: darwin
+goarch: arm64
+pkg: github.com/zalando/skipper/proxy
+cpu: Apple M5 Max
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=1         	   12146	     87493 ns/op	   25347 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=8         	   13598	     88595 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=32        	   14018	     86856 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=200       	   13341	     89658 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=1                        	   14402	     83664 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=8                        	   13978	     83168 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=32                       	   13893	     89325 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=200                      	   13356	     89170 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=1                    	   14258	     86739 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=8                    	   12394	     85075 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=32                   	   13992	     84287 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=200                  	   12855	     89400 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=1                	   14252	     89088 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=8                	   12896	     90629 ns/op	   25377 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=32               	   14421	     83822 ns/op	   25376 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=200              	   13783	     87219 ns/op	   25374 B/op	     179 allocs/op
+PASS
+goos: darwin
+goarch: arm64
+pkg: github.com/zalando/skipper/proxy
+cpu: Apple M5 Max
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=1         	   13311	     91088 ns/op	   25347 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=8         	   12757	     92096 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=32        	   13070	     87816 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=200       	   12447	     93168 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=1                        	   13947	     84377 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=8                        	   13976	     86025 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=32                       	   13804	     86139 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=200                      	   12255	     98747 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=1                    	   12495	     87910 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=8                    	   13890	     86233 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=32                   	   13712	     86810 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=200                  	   12643	     95382 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=1                	   13370	     91518 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=8                	   12759	     86381 ns/op	   25377 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=32               	   13978	     87106 ns/op	   25376 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=200              	   10000	    236861 ns/op	   25374 B/op	     179 allocs/op
+PASS
+goos: darwin
+goarch: arm64
+pkg: github.com/zalando/skipper/proxy
+cpu: Apple M5 Max
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=1         	   12270	    162366 ns/op	   25347 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=8         	    7909	    137956 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=32        	   12320	    206745 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=200       	   13045	     95299 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=1                        	   13488	     84662 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=8                        	   10000	    127992 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=32                       	    3934	    355616 ns/op	   25344 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/random/endpoints=200                      	   11738	    100932 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=1                    	   12295	    105328 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=8                    	   12693	     95968 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=32                   	   12242	     96745 ns/op	   25345 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=200                  	   12783	    113063 ns/op	   25342 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=1                	   13138	     97726 ns/op	   25346 B/op	     177 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=8                	   11871	    101446 ns/op	   25377 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=32               	   12813	    102825 ns/op	   25376 B/op	     179 allocs/op
+BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=200              	   12157	     97772 ns/op	   25374 B/op	     179 allocs/op
+PASS

@@ -1,0 +1,143 @@
+go build ./...
+go build -ldflags "-X main.version=v0.28.20-1-g3a146625-dirty -X main.commit=3a146625" -o bin/skipper ./cmd/skipper
+go build -ldflags "-X main.version=v0.28.20-1-g3a146625-dirty -X main.commit=3a146625" -o bin/eskip ./cmd/eskip
+go build -ldflags "-X main.version=v0.28.20-1-g3a146625-dirty -X main.commit=3a146625" -o bin/webhook ./cmd/webhook
+go build -ldflags "-X main.version=v0.28.20-1-g3a146625-dirty -X main.commit=3a146625" -o bin/routesrv ./cmd/routesrv
+go build -buildmode=plugin -o _test_plugins/filter_noop.so _test_plugins/filter_noop.go
+go build -buildmode=plugin -o _test_plugins/predicate_match_none.so _test_plugins/predicate_match_none.go
+go build -buildmode=plugin -o _test_plugins/dataclient_noop.so _test_plugins/dataclient_noop.go
+go build -buildmode=plugin -o _test_plugins/multitype_noop.so _test_plugins/multitype_noop.go
+go build -buildmode=plugin -o _test_plugins_fail/fail.so _test_plugins_fail/fail.go
+go test -run LoadPlugins
+time="2026-10-04T06:06:38Z" level=info msg="found plugin dataclient_noop at _test_plugins/dataclient_noop.so"
+time="2026-10-04T06:06:38Z" level=info msg="found plugin filter_noop at _test_plugins/filter_noop.so"
+time="2026-10-04T06:06:38Z" level=info msg="found plugin multitype_noop at _test_plugins/multitype_noop.so"
+time="2026-10-04T06:06:38Z" level=info msg="found plugin predicate_match_none at _test_plugins/predicate_match_none.so"
+time="2026-10-04T06:06:38Z" level=info msg="loaded plugin filter_noop (noop) from _test_plugins/filter_noop.so"
+time="2026-10-04T06:06:38Z" level=info msg="attempting to load plugin from _test_plugins/dataclient_noop.so"
+time="2026-10-04T06:06:38Z" level=info msg="data client plugin dataclient_noop loaded from _test_plugins/dataclient_noop.so"
+time="2026-10-04T06:06:38Z" level=info msg="attempting to load plugin from _test_plugins/filter_noop.so"
+time="2026-10-04T06:06:38Z" level=info msg="plugin filter_noop already loaded with InitFilter"
+time="2026-10-04T06:06:38Z" level=info msg="attempting to load plugin from _test_plugins/multitype_noop.so"
+time="2026-10-04T06:06:38Z" level=info msg="multitype plugin multitype_noop loaded from _test_plugins/multitype_noop.so (filter: 1, predicate: 1, dataclient: 0)"
+time="2026-10-04T06:06:38Z" level=info msg="attempting to load plugin from _test_plugins/predicate_match_none.so"
+time="2026-10-04T06:06:38Z" level=info msg="predicate plugin predicate_match_none loaded from _test_plugins/predicate_match_none.so"
+time="2026-10-04T06:06:38Z" level=info msg="found plugin fail at _test_plugins_fail/fail.so"
+time="2026-10-04T06:06:38Z" level=info msg="attempting to load plugin from _test_plugins_fail/fail.so"
+time="2026-10-04T06:06:38Z" level=info msg="filter plugin fail loaded from _test_plugins_fail/fail.so"
+time="2026-10-04T06:06:38Z" level=info msg="predicate plugin fail loaded from _test_plugins_fail/fail.so"
+PASS
+ok  	github.com/zalando/skipper	0.126s
+go test -test.short ./...
+ok  	github.com/zalando/skipper	47.257s
+ok  	github.com/zalando/skipper/circuit	0.036s
+ok  	github.com/zalando/skipper/cmd/eskip	0.007s
+?   	github.com/zalando/skipper/cmd/routesrv	[no test files]
+?   	github.com/zalando/skipper/cmd/skipper	[no test files]
+?   	github.com/zalando/skipper/cmd/webhook	[no test files]
+ok  	github.com/zalando/skipper/config	0.033s
+ok  	github.com/zalando/skipper/dataclients/kubernetes	0.960s
+ok  	github.com/zalando/skipper/dataclients/kubernetes/admission	0.024s
+ok  	github.com/zalando/skipper/dataclients/kubernetes/definitions	0.042s
+ok  	github.com/zalando/skipper/dataclients/kubernetes/kubernetestest	0.007s
+ok  	github.com/zalando/skipper/dataclients/routestring	0.133s
+ok  	github.com/zalando/skipper/eskip	0.020s
+ok  	github.com/zalando/skipper/eskipfile	2.556s
+ok  	github.com/zalando/skipper/etcd	0.031s
+ok  	github.com/zalando/skipper/etcd/etcdtest	1.495s
+ok  	github.com/zalando/skipper/filters	0.007s [no tests to run]
+ok  	github.com/zalando/skipper/filters/accesslog	0.002s
+ok  	github.com/zalando/skipper/filters/annotate	0.004s
+ok  	github.com/zalando/skipper/filters/apiusagemonitoring	0.012s
+ok  	github.com/zalando/skipper/filters/auth	6.119s
+ok  	github.com/zalando/skipper/filters/awssigner/awssigv4	0.002s
+?   	github.com/zalando/skipper/filters/awssigner/internal	[no test files]
+ok  	github.com/zalando/skipper/filters/block	4.572s
+ok  	github.com/zalando/skipper/filters/builtin	1.615s
+ok  	github.com/zalando/skipper/filters/cache	1.495s
+ok  	github.com/zalando/skipper/filters/circuit	0.002s
+ok  	github.com/zalando/skipper/filters/consistenthash	0.004s
+ok  	github.com/zalando/skipper/filters/cookie	0.002s
+ok  	github.com/zalando/skipper/filters/cors	0.002s
+ok  	github.com/zalando/skipper/filters/diag	11.451s
+ok  	github.com/zalando/skipper/filters/fadein	2.110s
+ok  	github.com/zalando/skipper/filters/filtertest	0.007s
+ok  	github.com/zalando/skipper/filters/flowid	0.003s
+ok  	github.com/zalando/skipper/filters/log	0.006s
+ok  	github.com/zalando/skipper/filters/openpolicyagent	9.866s
+ok  	github.com/zalando/skipper/filters/openpolicyagent/internal	0.004s
+ok  	github.com/zalando/skipper/filters/openpolicyagent/internal/envoy	0.004s
+ok  	github.com/zalando/skipper/filters/openpolicyagent/internal/opatestutils	0.117s
+ok  	github.com/zalando/skipper/filters/openpolicyagent/opaauthorizerequest	17.842s
+ok  	github.com/zalando/skipper/filters/openpolicyagent/opaserveresponse	1.407s
+ok  	github.com/zalando/skipper/filters/ratelimit	4.748s
+ok  	github.com/zalando/skipper/filters/rfc	0.002s
+ok  	github.com/zalando/skipper/filters/scheduler	6.410s
+ok  	github.com/zalando/skipper/filters/sed	0.113s
+ok  	github.com/zalando/skipper/filters/serve	0.056s
+ok  	github.com/zalando/skipper/filters/shedder	0.780s
+ok  	github.com/zalando/skipper/filters/tee	0.540s
+ok  	github.com/zalando/skipper/filters/tls	0.025s
+ok  	github.com/zalando/skipper/filters/tracing	0.003s
+ok  	github.com/zalando/skipper/filters/xforward	0.010s
+ok  	github.com/zalando/skipper/io	1.339s
+ok  	github.com/zalando/skipper/io/iotest	0.362s
+ok  	github.com/zalando/skipper/jwt	0.002s
+ok  	github.com/zalando/skipper/loadbalancer	2.084s
+ok  	github.com/zalando/skipper/logging	0.005s
+ok  	github.com/zalando/skipper/logging/loggingtest	0.013s
+ok  	github.com/zalando/skipper/metrics	0.397s
+ok  	github.com/zalando/skipper/metrics/metricstest	0.002s
+ok  	github.com/zalando/skipper/net	35.443s
+ok  	github.com/zalando/skipper/net/dnstest	0.004s
+?   	github.com/zalando/skipper/net/httptest	[no test files]
+ok  	github.com/zalando/skipper/net/nettest	0.109s
+ok  	github.com/zalando/skipper/net/redistest	1.356s
+ok  	github.com/zalando/skipper/net/valkeytest	0.737s
+ok  	github.com/zalando/skipper/otel	0.004s
+?   	github.com/zalando/skipper/packaging/version	[no test files]
+ok  	github.com/zalando/skipper/pathmux	0.002s
+?   	github.com/zalando/skipper/predicates	[no test files]
+ok  	github.com/zalando/skipper/predicates/auth	0.026s
+ok  	github.com/zalando/skipper/predicates/content	0.003s
+ok  	github.com/zalando/skipper/predicates/cookie	0.003s
+ok  	github.com/zalando/skipper/predicates/cron	0.003s
+ok  	github.com/zalando/skipper/predicates/forwarded	0.003s
+ok  	github.com/zalando/skipper/predicates/host	0.003s
+ok  	github.com/zalando/skipper/predicates/interval	0.004s
+ok  	github.com/zalando/skipper/predicates/methods	0.003s
+ok  	github.com/zalando/skipper/predicates/otel	0.003s
+ok  	github.com/zalando/skipper/predicates/primitive	0.108s
+ok  	github.com/zalando/skipper/predicates/query	0.003s
+ok  	github.com/zalando/skipper/predicates/source	0.003s
+ok  	github.com/zalando/skipper/predicates/tee	0.003s
+ok  	github.com/zalando/skipper/predicates/tls	0.007s
+ok  	github.com/zalando/skipper/predicates/traffic	2.934s
+ok  	github.com/zalando/skipper/proxy	70.441s
+ok  	github.com/zalando/skipper/proxy/backendtest	0.013s
+ok  	github.com/zalando/skipper/proxy/fastcgi	0.004s
+ok  	github.com/zalando/skipper/proxy/proxytest	0.020s
+ok  	github.com/zalando/skipper/proxylistener	0.011s
+ok  	github.com/zalando/skipper/queuelistener	1.930s
+ok  	github.com/zalando/skipper/ratelimit	22.071s
+ok  	github.com/zalando/skipper/rfc	0.001s
+ok  	github.com/zalando/skipper/rfc/rfc9421	0.027s
+ok  	github.com/zalando/skipper/routesrv	4.161s
+ok  	github.com/zalando/skipper/routing	2.517s
+?   	github.com/zalando/skipper/routing/pathgen	[no test files]
+ok  	github.com/zalando/skipper/routing/testdataclient	0.003s
+ok  	github.com/zalando/skipper/scheduler	2.999s
+ok  	github.com/zalando/skipper/script	0.188s
+?   	github.com/zalando/skipper/script/base64	[no test files]
+ok  	github.com/zalando/skipper/secrets	3.462s
+ok  	github.com/zalando/skipper/secrets/certregistry	0.125s
+?   	github.com/zalando/skipper/secrets/secrettest	[no test files]
+ok  	github.com/zalando/skipper/swarm	0.371s
+?   	github.com/zalando/skipper/swarm/swarmtest	[no test files]
+?   	github.com/zalando/skipper/tracing	[no test files]
+?   	github.com/zalando/skipper/tracing/tracers/basic	[no test files]
+?   	github.com/zalando/skipper/tracing/tracers/instana	[no test files]
+ok  	github.com/zalando/skipper/tracing/tracers/jaeger	0.003s
+ok  	github.com/zalando/skipper/tracing/tracers/lightstep	0.004s
+ok  	github.com/zalando/skipper/tracing/tracingtest	0.002s
+ok  	github.com/zalando/skipper/validation	0.005s

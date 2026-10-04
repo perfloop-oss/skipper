@@ -1,0 +1,143 @@
+go build ./...
+go build -ldflags "-X main.version=v0.28.20-1-g3a146625 -X main.commit=3a146625" -o bin/skipper ./cmd/skipper
+go build -ldflags "-X main.version=v0.28.20-1-g3a146625 -X main.commit=3a146625" -o bin/eskip ./cmd/eskip
+go build -ldflags "-X main.version=v0.28.20-1-g3a146625 -X main.commit=3a146625" -o bin/webhook ./cmd/webhook
+go build -ldflags "-X main.version=v0.28.20-1-g3a146625 -X main.commit=3a146625" -o bin/routesrv ./cmd/routesrv
+go build -buildmode=plugin -o _test_plugins/filter_noop.so _test_plugins/filter_noop.go
+go build -buildmode=plugin -o _test_plugins/predicate_match_none.so _test_plugins/predicate_match_none.go
+go build -buildmode=plugin -o _test_plugins/dataclient_noop.so _test_plugins/dataclient_noop.go
+go build -buildmode=plugin -o _test_plugins/multitype_noop.so _test_plugins/multitype_noop.go
+go build -buildmode=plugin -o _test_plugins_fail/fail.so _test_plugins_fail/fail.go
+go test -run LoadPlugins
+time="2026-10-04T06:03:46Z" level=info msg="found plugin dataclient_noop at _test_plugins/dataclient_noop.so"
+time="2026-10-04T06:03:46Z" level=info msg="found plugin filter_noop at _test_plugins/filter_noop.so"
+time="2026-10-04T06:03:46Z" level=info msg="found plugin multitype_noop at _test_plugins/multitype_noop.so"
+time="2026-10-04T06:03:46Z" level=info msg="found plugin predicate_match_none at _test_plugins/predicate_match_none.so"
+time="2026-10-04T06:03:46Z" level=info msg="loaded plugin filter_noop (noop) from _test_plugins/filter_noop.so"
+time="2026-10-04T06:03:46Z" level=info msg="attempting to load plugin from _test_plugins/filter_noop.so"
+time="2026-10-04T06:03:46Z" level=info msg="plugin filter_noop already loaded with InitFilter"
+time="2026-10-04T06:03:46Z" level=info msg="attempting to load plugin from _test_plugins/multitype_noop.so"
+time="2026-10-04T06:03:46Z" level=info msg="multitype plugin multitype_noop loaded from _test_plugins/multitype_noop.so (filter: 1, predicate: 1, dataclient: 0)"
+time="2026-10-04T06:03:46Z" level=info msg="attempting to load plugin from _test_plugins/predicate_match_none.so"
+time="2026-10-04T06:03:46Z" level=info msg="predicate plugin predicate_match_none loaded from _test_plugins/predicate_match_none.so"
+time="2026-10-04T06:03:46Z" level=info msg="attempting to load plugin from _test_plugins/dataclient_noop.so"
+time="2026-10-04T06:03:46Z" level=info msg="data client plugin dataclient_noop loaded from _test_plugins/dataclient_noop.so"
+time="2026-10-04T06:03:46Z" level=info msg="found plugin fail at _test_plugins_fail/fail.so"
+time="2026-10-04T06:03:46Z" level=info msg="attempting to load plugin from _test_plugins_fail/fail.so"
+time="2026-10-04T06:03:46Z" level=info msg="filter plugin fail loaded from _test_plugins_fail/fail.so"
+time="2026-10-04T06:03:46Z" level=info msg="predicate plugin fail loaded from _test_plugins_fail/fail.so"
+PASS
+ok  	github.com/zalando/skipper	0.129s
+go test -test.short ./...
+ok  	github.com/zalando/skipper	(cached)
+ok  	github.com/zalando/skipper/circuit	(cached)
+ok  	github.com/zalando/skipper/cmd/eskip	(cached)
+?   	github.com/zalando/skipper/cmd/routesrv	[no test files]
+?   	github.com/zalando/skipper/cmd/skipper	[no test files]
+?   	github.com/zalando/skipper/cmd/webhook	[no test files]
+ok  	github.com/zalando/skipper/config	(cached)
+ok  	github.com/zalando/skipper/dataclients/kubernetes	(cached)
+ok  	github.com/zalando/skipper/dataclients/kubernetes/admission	(cached)
+ok  	github.com/zalando/skipper/dataclients/kubernetes/definitions	(cached)
+ok  	github.com/zalando/skipper/dataclients/kubernetes/kubernetestest	(cached)
+ok  	github.com/zalando/skipper/dataclients/routestring	(cached)
+ok  	github.com/zalando/skipper/eskip	(cached)
+ok  	github.com/zalando/skipper/eskipfile	(cached)
+ok  	github.com/zalando/skipper/etcd	(cached)
+ok  	github.com/zalando/skipper/etcd/etcdtest	(cached)
+ok  	github.com/zalando/skipper/filters	(cached) [no tests to run]
+ok  	github.com/zalando/skipper/filters/accesslog	(cached)
+ok  	github.com/zalando/skipper/filters/annotate	(cached)
+ok  	github.com/zalando/skipper/filters/apiusagemonitoring	(cached)
+ok  	github.com/zalando/skipper/filters/auth	(cached)
+ok  	github.com/zalando/skipper/filters/awssigner/awssigv4	(cached)
+?   	github.com/zalando/skipper/filters/awssigner/internal	[no test files]
+ok  	github.com/zalando/skipper/filters/block	(cached)
+ok  	github.com/zalando/skipper/filters/builtin	(cached)
+ok  	github.com/zalando/skipper/filters/cache	(cached)
+ok  	github.com/zalando/skipper/filters/circuit	(cached)
+ok  	github.com/zalando/skipper/filters/consistenthash	(cached)
+ok  	github.com/zalando/skipper/filters/cookie	(cached)
+ok  	github.com/zalando/skipper/filters/cors	(cached)
+ok  	github.com/zalando/skipper/filters/diag	(cached)
+ok  	github.com/zalando/skipper/filters/fadein	(cached)
+ok  	github.com/zalando/skipper/filters/filtertest	(cached)
+ok  	github.com/zalando/skipper/filters/flowid	(cached)
+ok  	github.com/zalando/skipper/filters/log	(cached)
+ok  	github.com/zalando/skipper/filters/openpolicyagent	(cached)
+ok  	github.com/zalando/skipper/filters/openpolicyagent/internal	(cached)
+ok  	github.com/zalando/skipper/filters/openpolicyagent/internal/envoy	(cached)
+ok  	github.com/zalando/skipper/filters/openpolicyagent/internal/opatestutils	(cached)
+ok  	github.com/zalando/skipper/filters/openpolicyagent/opaauthorizerequest	(cached)
+ok  	github.com/zalando/skipper/filters/openpolicyagent/opaserveresponse	(cached)
+ok  	github.com/zalando/skipper/filters/ratelimit	(cached)
+ok  	github.com/zalando/skipper/filters/rfc	(cached)
+ok  	github.com/zalando/skipper/filters/scheduler	(cached)
+ok  	github.com/zalando/skipper/filters/sed	(cached)
+ok  	github.com/zalando/skipper/filters/serve	(cached)
+ok  	github.com/zalando/skipper/filters/shedder	(cached)
+ok  	github.com/zalando/skipper/filters/tee	(cached)
+ok  	github.com/zalando/skipper/filters/tls	(cached)
+ok  	github.com/zalando/skipper/filters/tracing	(cached)
+ok  	github.com/zalando/skipper/filters/xforward	(cached)
+ok  	github.com/zalando/skipper/io	(cached)
+ok  	github.com/zalando/skipper/io/iotest	(cached)
+ok  	github.com/zalando/skipper/jwt	(cached)
+ok  	github.com/zalando/skipper/loadbalancer	(cached)
+ok  	github.com/zalando/skipper/logging	(cached)
+ok  	github.com/zalando/skipper/logging/loggingtest	(cached)
+ok  	github.com/zalando/skipper/metrics	(cached)
+ok  	github.com/zalando/skipper/metrics/metricstest	(cached)
+ok  	github.com/zalando/skipper/net	(cached)
+ok  	github.com/zalando/skipper/net/dnstest	(cached)
+?   	github.com/zalando/skipper/net/httptest	[no test files]
+ok  	github.com/zalando/skipper/net/nettest	(cached)
+ok  	github.com/zalando/skipper/net/redistest	(cached)
+ok  	github.com/zalando/skipper/net/valkeytest	(cached)
+ok  	github.com/zalando/skipper/otel	(cached)
+?   	github.com/zalando/skipper/packaging/version	[no test files]
+ok  	github.com/zalando/skipper/pathmux	(cached)
+?   	github.com/zalando/skipper/predicates	[no test files]
+ok  	github.com/zalando/skipper/predicates/auth	(cached)
+ok  	github.com/zalando/skipper/predicates/content	(cached)
+ok  	github.com/zalando/skipper/predicates/cookie	(cached)
+ok  	github.com/zalando/skipper/predicates/cron	(cached)
+ok  	github.com/zalando/skipper/predicates/forwarded	(cached)
+ok  	github.com/zalando/skipper/predicates/host	(cached)
+ok  	github.com/zalando/skipper/predicates/interval	(cached)
+ok  	github.com/zalando/skipper/predicates/methods	(cached)
+ok  	github.com/zalando/skipper/predicates/otel	(cached)
+ok  	github.com/zalando/skipper/predicates/primitive	(cached)
+ok  	github.com/zalando/skipper/predicates/query	(cached)
+ok  	github.com/zalando/skipper/predicates/source	(cached)
+ok  	github.com/zalando/skipper/predicates/tee	(cached)
+ok  	github.com/zalando/skipper/predicates/tls	(cached)
+ok  	github.com/zalando/skipper/predicates/traffic	(cached)
+ok  	github.com/zalando/skipper/proxy	70.423s
+ok  	github.com/zalando/skipper/proxy/backendtest	(cached)
+ok  	github.com/zalando/skipper/proxy/fastcgi	(cached)
+ok  	github.com/zalando/skipper/proxy/proxytest	(cached)
+ok  	github.com/zalando/skipper/proxylistener	(cached)
+ok  	github.com/zalando/skipper/queuelistener	(cached)
+ok  	github.com/zalando/skipper/ratelimit	(cached)
+ok  	github.com/zalando/skipper/rfc	(cached)
+ok  	github.com/zalando/skipper/rfc/rfc9421	(cached)
+ok  	github.com/zalando/skipper/routesrv	(cached)
+ok  	github.com/zalando/skipper/routing	(cached)
+?   	github.com/zalando/skipper/routing/pathgen	[no test files]
+ok  	github.com/zalando/skipper/routing/testdataclient	(cached)
+ok  	github.com/zalando/skipper/scheduler	(cached)
+ok  	github.com/zalando/skipper/script	(cached)
+?   	github.com/zalando/skipper/script/base64	[no test files]
+ok  	github.com/zalando/skipper/secrets	(cached)
+ok  	github.com/zalando/skipper/secrets/certregistry	(cached)
+?   	github.com/zalando/skipper/secrets/secrettest	[no test files]
+ok  	github.com/zalando/skipper/swarm	(cached)
+?   	github.com/zalando/skipper/swarm/swarmtest	[no test files]
+?   	github.com/zalando/skipper/tracing	[no test files]
+?   	github.com/zalando/skipper/tracing/tracers/basic	[no test files]
+?   	github.com/zalando/skipper/tracing/tracers/instana	[no test files]
+ok  	github.com/zalando/skipper/tracing/tracers/jaeger	(cached)
+ok  	github.com/zalando/skipper/tracing/tracers/lightstep	(cached)
+ok  	github.com/zalando/skipper/tracing/tracingtest	(cached)
+ok  	github.com/zalando/skipper/validation	(cached)

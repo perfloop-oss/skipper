@@ -1,0 +1,17 @@
+benchmark,samples_per_arm,base_B_per_request,candidate_B_per_request,reduction_percent,base_allocations,candidate_allocations
+powerOfRandomNChoices/endpoints=1,6,25411.0,25347.0,0.252,178.0,177.0
+powerOfRandomNChoices/endpoints=8,6,25858.0,25346.0,1.98,178.0,177.0
+powerOfRandomNChoices/endpoints=32,6,27650.0,25345.0,8.336,178.0,177.0
+powerOfRandomNChoices/endpoints=200,6,38911.0,25342.0,34.872,178.0,177.0
+random/endpoints=1,6,25410.0,25346.0,0.252,178.0,177.0
+random/endpoints=8,6,25858.0,25345.0,1.984,178.0,177.0
+random/endpoints=32,6,27649.0,25345.0,8.333,178.0,177.0
+random/endpoints=200,6,38911.0,25342.0,34.872,178.0,177.0
+roundRobin/endpoints=1,6,25410.0,25346.0,0.252,178.0,177.0
+roundRobin/endpoints=8,6,25858.0,25346.0,1.98,178.0,177.0
+roundRobin/endpoints=32,6,27649.0,25345.0,8.333,178.0,177.0
+roundRobin/endpoints=200,6,38911.0,25342.0,34.872,178.0,177.0
+consistentHash/endpoints=1,6,25410.0,25346.0,0.252,178.0,177.0
+consistentHash/endpoints=8,6,25889.0,25377.0,1.978,180.0,179.0
+consistentHash/endpoints=32,6,27681.0,25376.0,8.327,180.0,179.0
+consistentHash/endpoints=200,6,38944.0,25374.0,34.845,180.0,179.0
