@@ -1,0 +1,335 @@
+{
+  "baseCommit": "3a146625f2b4f749fffcbabc9b6eab48e38aee4e",
+  "candidateCommit": "ede7dd6c074afbce7dff9d37ef49c61f92cac7d6",
+  "proofCommit": "aa293a3f641f0762d43b89295af399dc47b0f075",
+  "nativeVerdict": "VALIDATED",
+  "verification": {
+    "findings": [],
+    "explanation": "The change delays building the filtered endpoint slice until a built-in read-only load-balancer actually drops an endpoint. In the steady state, it reuses the route slice; mixed-age filtering still returns an ordered copy, and the all-dropped fallback is unchanged. Because `LBAlgorithm` receives a mutable endpoint slice, unmarked custom algorithms keep the previous defensive copy. A public postprocessor test uses a custom algorithm that swaps endpoints; a diagnostic version with unconditional reuse failed that test, reversing the stored route order and changing the next selected backend. The change therefore follows the lazy-copy direction where the consumers are source-proven read-only, without changing the custom-algorithm contract.\n\nThe full-request benchmark fixture remains in proof support and is not shipped. It reaches `Proxy.ServeHTTP` with the default transport, access logging disabled, 200 distinct warmed local 204 backends, a one-hour fade-in, and endpoints aged two hours. The measured consumer metric is B/op: allocated bytes for each completed benchmark request iteration. In the prepared five-second runs, B/op fell from 38,976 to 25,406 for power-of-random choices, random, and round-robin, and from 39,008 to 25,438 for consistent hash; allocs/op also fell by one in each workload. The measurement system applies the declared bounds. Production traffic frequency for steady-state routes remains unmeasured and can be checked with production telemetry after deployment.\n\nThe shipped additions are behavior and regression tests, not benchmark-measurement machinery; the full-request benchmark stays outside the shipped change. Formatting and lint/build receipts passed, and two interleaved full TestFadeIn runs passed on both revisions. A broader package run was not wholly green: the final-only TestPHC counter failure used routes without fade-in and returned through the unchanged zero-duration branch; other failures were outside the modified path. Full repository CI remains pending."
+  },
+  "checks": [
+    {
+      "args": [
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "go install honnef.co/go/tools/cmd/staticcheck@v0.8.1 && PATH=\"$(go env GOPATH)/bin:$PATH\" make lint"
+      ],
+      "build": null,
+      "passed": true,
+      "startedAt": "2026-10-04T08:38:22.613080462Z",
+      "finishedAt": "2026-10-04T08:39:14.260384818Z"
+    },
+    {
+      "args": [
+        "bash",
+        "-o",
+        "pipefail",
+        "-c",
+        "go test -race ./proxy -run '^(TestFilterFadeInLazyFiltering|TestFadeInPreservesRouteSliceForCustomLBAlgorithm|TestFadeInMonotony|TestFadeInLoadBetweenOldAndNewEps|TestSelectEndpointEndsWhenAllEndpointsAreFading)$' -count=1 && go test ./loadbalancer/... -count=1"
+      ],
+      "build": null,
+      "passed": true,
+      "startedAt": "2026-10-04T08:39:15.291284089Z",
+      "finishedAt": "2026-10-04T08:40:07.144671680Z"
+    }
+  ],
+  "claims": [
+    {
+      "declaration": {
+        "build": [
+          "bash",
+          "-o",
+          "pipefail",
+          "-c",
+          "go test -c -o \"$PERFLOOP_BUILD_OUTPUT_DIR/bench.test\" ./proxy"
+        ],
+        "command": [
+          "bash",
+          "-o",
+          "pipefail",
+          "-c",
+          "\"$PERFLOOP_BUILD_OUTPUT_DIR/bench.test\" -test.bench='^BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=200$' -test.run='^$' -test.count=1 -test.benchmem -test.cpu=1 -test.benchtime=5s | perfloop-go-bench-json 'BenchmarkFadeInProofServeHTTP/powerOfRandomNChoices/endpoints=200' 'ns/op' 'B/op' 'allocs/op'"
+        ],
+        "metrics": [
+          {
+            "name": "B/op",
+            "delta": 0,
+            "require": "improve",
+            "direction": "lower"
+          },
+          {
+            "name": "allocs/op",
+            "require": "not_regress",
+            "direction": "lower"
+          },
+          {
+            "name": "ns/op",
+            "require": "not_regress",
+            "direction": "lower"
+          }
+        ],
+        "version": "v14",
+        "workload": "200 distinct LB endpoints, each served by a warmed local 204 backend, through Proxy.ServeHTTP with the default Proxy transport and access logging disabled; 1h fade-in duration, 2h endpoint age, GOMAXPROCS=1, sequential calls with rotating RemoteAddr; powerOfRandomNChoices",
+        "sandbox_class": "default",
+        "comparison_commit": "3a146625f2b4f749fffcbabc9b6eab48e38aee4e"
+      },
+      "decision": {
+        "claims": [
+          "On workload `200 distinct LB endpoints, each served by a warmed local 204 backend, through Proxy.ServeHTTP with the default Proxy transport and access logging disabled; 1h fade-in duration, 2h endpoint age, GOMAXPROCS=1, sequential calls with rotating RemoteAddr; powerOfRandomNChoices`, median metric `B/op` changed from 38976 to 25406; paired median delta -13570 (-34.8% of baseline; at least 19/20 confidence interval -13570 to -13570 from 10 pairs)."
+        ],
+        "status": "passed",
+        "metrics": [
+          {
+            "low": 13570,
+            "high": 13570,
+            "passed": true,
+            "paired_median": 13570,
+            "baseline_median": 38976,
+            "candidate_median": 25406
+          },
+          {
+            "low": 1,
+            "high": 1,
+            "passed": true,
+            "paired_median": 1,
+            "baseline_median": 182,
+            "candidate_median": 181
+          },
+          {
+            "low": 12298,
+            "high": 20649,
+            "passed": true,
+            "paired_median": 15348.5,
+            "baseline_median": 154341,
+            "candidate_median": 140449.5
+          }
+        ]
+      },
+      "finishedAt": "2026-10-04T09:31:30Z"
+    },
+    {
+      "declaration": {
+        "build": [
+          "bash",
+          "-o",
+          "pipefail",
+          "-c",
+          "go test -c -o \"$PERFLOOP_BUILD_OUTPUT_DIR/bench.test\" ./proxy"
+        ],
+        "command": [
+          "bash",
+          "-o",
+          "pipefail",
+          "-c",
+          "\"$PERFLOOP_BUILD_OUTPUT_DIR/bench.test\" -test.bench='^BenchmarkFadeInProofServeHTTP/random/endpoints=200$' -test.run='^$' -test.count=1 -test.benchmem -test.cpu=1 -test.benchtime=5s | perfloop-go-bench-json 'BenchmarkFadeInProofServeHTTP/random/endpoints=200' 'ns/op' 'B/op' 'allocs/op'"
+        ],
+        "metrics": [
+          {
+            "name": "B/op",
+            "delta": 0,
+            "require": "improve",
+            "direction": "lower"
+          },
+          {
+            "name": "allocs/op",
+            "require": "not_regress",
+            "direction": "lower"
+          },
+          {
+            "name": "ns/op",
+            "require": "not_regress",
+            "direction": "lower"
+          }
+        ],
+        "version": "v14",
+        "workload": "200 distinct LB endpoints, each served by a warmed local 204 backend, through Proxy.ServeHTTP with the default Proxy transport and access logging disabled; 1h fade-in duration, 2h endpoint age, GOMAXPROCS=1, sequential calls with rotating RemoteAddr; random",
+        "sandbox_class": "default",
+        "comparison_commit": "3a146625f2b4f749fffcbabc9b6eab48e38aee4e"
+      },
+      "decision": {
+        "claims": [
+          "On workload `200 distinct LB endpoints, each served by a warmed local 204 backend, through Proxy.ServeHTTP with the default Proxy transport and access logging disabled; 1h fade-in duration, 2h endpoint age, GOMAXPROCS=1, sequential calls with rotating RemoteAddr; random`, median metric `B/op` changed from 38976 to 25406; paired median delta -13570 (-34.8% of baseline; at least 19/20 confidence interval -13570 to -13570 from 10 pairs)."
+        ],
+        "status": "passed",
+        "metrics": [
+          {
+            "low": 13570,
+            "high": 13570,
+            "passed": true,
+            "paired_median": 13570,
+            "baseline_median": 38976,
+            "candidate_median": 25406
+          },
+          {
+            "low": 1,
+            "high": 1,
+            "passed": true,
+            "paired_median": 1,
+            "baseline_median": 182,
+            "candidate_median": 181
+          },
+          {
+            "low": 10359,
+            "high": 24814,
+            "passed": true,
+            "paired_median": 13609,
+            "baseline_median": 157174.5,
+            "candidate_median": 141956
+          }
+        ]
+      },
+      "finishedAt": "2026-10-04T09:34:55Z"
+    },
+    {
+      "declaration": {
+        "build": [
+          "bash",
+          "-o",
+          "pipefail",
+          "-c",
+          "go test -c -o \"$PERFLOOP_BUILD_OUTPUT_DIR/bench.test\" ./proxy"
+        ],
+        "command": [
+          "bash",
+          "-o",
+          "pipefail",
+          "-c",
+          "\"$PERFLOOP_BUILD_OUTPUT_DIR/bench.test\" -test.bench='^BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=200$' -test.run='^$' -test.count=1 -test.benchmem -test.cpu=1 -test.benchtime=5s | perfloop-go-bench-json 'BenchmarkFadeInProofServeHTTP/roundRobin/endpoints=200' 'ns/op' 'B/op' 'allocs/op'"
+        ],
+        "metrics": [
+          {
+            "name": "B/op",
+            "delta": 0,
+            "require": "improve",
+            "direction": "lower"
+          },
+          {
+            "name": "allocs/op",
+            "require": "not_regress",
+            "direction": "lower"
+          },
+          {
+            "name": "ns/op",
+            "require": "not_regress",
+            "direction": "lower"
+          }
+        ],
+        "version": "v14",
+        "workload": "200 distinct LB endpoints, each served by a warmed local 204 backend, through Proxy.ServeHTTP with the default Proxy transport and access logging disabled; 1h fade-in duration, 2h endpoint age, GOMAXPROCS=1, sequential calls with rotating RemoteAddr; roundRobin",
+        "sandbox_class": "default",
+        "comparison_commit": "3a146625f2b4f749fffcbabc9b6eab48e38aee4e"
+      },
+      "decision": {
+        "claims": [
+          "On workload `200 distinct LB endpoints, each served by a warmed local 204 backend, through Proxy.ServeHTTP with the default Proxy transport and access logging disabled; 1h fade-in duration, 2h endpoint age, GOMAXPROCS=1, sequential calls with rotating RemoteAddr; roundRobin`, median metric `B/op` changed from 38976 to 25406; paired median delta -13570 (-34.8% of baseline; at least 19/20 confidence interval -13570 to -13570 from 10 pairs)."
+        ],
+        "status": "passed",
+        "metrics": [
+          {
+            "low": 13570,
+            "high": 13570,
+            "passed": true,
+            "paired_median": 13570,
+            "baseline_median": 38976,
+            "candidate_median": 25406
+          },
+          {
+            "low": 1,
+            "high": 1,
+            "passed": true,
+            "paired_median": 1,
+            "baseline_median": 182,
+            "candidate_median": 181
+          },
+          {
+            "low": 10018,
+            "high": 21760,
+            "passed": true,
+            "paired_median": 13559,
+            "baseline_median": 166702,
+            "candidate_median": 152251.5
+          }
+        ]
+      },
+      "finishedAt": "2026-10-04T09:38:21Z"
+    },
+    {
+      "declaration": {
+        "build": [
+          "bash",
+          "-o",
+          "pipefail",
+          "-c",
+          "go test -c -o \"$PERFLOOP_BUILD_OUTPUT_DIR/bench.test\" ./proxy"
+        ],
+        "command": [
+          "bash",
+          "-o",
+          "pipefail",
+          "-c",
+          "\"$PERFLOOP_BUILD_OUTPUT_DIR/bench.test\" -test.bench='^BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=200$' -test.run='^$' -test.count=1 -test.benchmem -test.cpu=1 -test.benchtime=5s | perfloop-go-bench-json 'BenchmarkFadeInProofServeHTTP/consistentHash/endpoints=200' 'ns/op' 'B/op' 'allocs/op'"
+        ],
+        "metrics": [
+          {
+            "name": "B/op",
+            "delta": 0,
+            "require": "improve",
+            "direction": "lower"
+          },
+          {
+            "name": "allocs/op",
+            "require": "not_regress",
+            "direction": "lower"
+          },
+          {
+            "name": "ns/op",
+            "require": "not_regress",
+            "direction": "lower"
+          }
+        ],
+        "version": "v14",
+        "workload": "200 distinct LB endpoints, each served by a warmed local 204 backend, through Proxy.ServeHTTP with the default Proxy transport and access logging disabled; 1h fade-in duration, 2h endpoint age, GOMAXPROCS=1, sequential calls with rotating RemoteAddr; consistentHash",
+        "sandbox_class": "default",
+        "comparison_commit": "3a146625f2b4f749fffcbabc9b6eab48e38aee4e"
+      },
+      "decision": {
+        "claims": [
+          "On workload `200 distinct LB endpoints, each served by a warmed local 204 backend, through Proxy.ServeHTTP with the default Proxy transport and access logging disabled; 1h fade-in duration, 2h endpoint age, GOMAXPROCS=1, sequential calls with rotating RemoteAddr; consistentHash`, median metric `B/op` changed from 39008 to 25438; paired median delta -13570 (-34.8% of baseline; at least 19/20 confidence interval -13570 to -13570 from 10 pairs)."
+        ],
+        "status": "passed",
+        "metrics": [
+          {
+            "low": 13570,
+            "high": 13570,
+            "passed": true,
+            "paired_median": 13570,
+            "baseline_median": 39008,
+            "candidate_median": 25438
+          },
+          {
+            "low": 1,
+            "high": 1,
+            "passed": true,
+            "paired_median": 1,
+            "baseline_median": 184,
+            "candidate_median": 183
+          },
+          {
+            "low": 3962,
+            "high": 30855,
+            "passed": true,
+            "paired_median": 18461,
+            "baseline_median": 205536,
+            "candidate_median": 186217.5
+          }
+        ]
+      },
+      "finishedAt": "2026-10-04T09:41:59Z"
+    }
+  ],
+  "fixtureSHA256": "e3a949661f4d6b52359fdad5cca6720468e26f53527574cd09b6b84fa7411ead",
+  "sourcePatchSHA256": "d769d2c62e872e6a476988fd4b67984b2d5dfe15367a361db094a817e24223cf",
+  "note": "Recorded decisions and aggregate statistics, not raw sample logs. No production traffic was measured."
+}
